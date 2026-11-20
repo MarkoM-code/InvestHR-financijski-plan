@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>InvestHR Financijski plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: jedna kolona do 880px, sekcije s velikim ikonama, kartice bez okvira na svijetloj podlozi; interaktivni dio samo gdje pomaže. */
+:root{
+  --bg:#f7faf8; --surface:#ffffff; --tile:#eef6f1; --fg:#1d3248; --muted:#6b7f92; --line:#e7eeea;
+  --green:#7cc979; --green-soft:#e3f3e6; --green-deep:#2e9362; --green-text:#2a8a5a; --navy:#1d3248;
+  --btn:#2e9362; --btn-fg:#fff; --warn-bg:#fff6e3; --warn-fg:#7a5410; --bad:#c4473d; --amber:#d9a441; --blue:#5b8fc7;
+  --font-d:'Montserrat',system-ui,sans-serif; --font-b:'Inter',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#07131d; --surface:#0f2232; --tile:#15303f; --fg:#e9f2ee; --muted:#93a9b8; --line:#1b3445;
+  --green:#6fcf6d; --green-soft:#17402c; --green-deep:#58b866; --green-text:#7fd67d; --navy:#e9f2ee; --btn:#58b866; --btn-fg:#06210f;
+  --warn-bg:#3a2d0f; --warn-fg:#f3d58f; --bad:#ff8f84; --amber:#e8b95a; --blue:#7fb0e6; color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-b);font-size:16px;line-height:1.6;
+  padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:880px;margin:0 auto;display:grid;gap:44px}
+h1,h2,h3{font-family:var(--font-d);font-weight:700;margin:0;text-wrap:balance;line-height:1.25}
+h1{font-size:clamp(1.6rem,4.5vw,2.2rem)}
+h2{font-size:1.4rem}
+h3{font-size:1.02rem}
+p{margin:0}
+a{color:var(--green-text);font-weight:600}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sub{color:var(--muted)}
+.fine{font-size:13.5px;color:var(--muted)}
+.lab{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.logo{background:#fff;border-radius:20px;border:1px solid var(--line);padding:6px 12px;display:flex}
+.logo img{height:68px;width:auto;display:block}
+.head-t{flex:1 1 280px;min-width:0;display:grid;gap:6px}
+.flag{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--warn-fg);background:var(--warn-bg);border-radius:999px;padding:6px 13px;white-space:nowrap}
+nav.jump{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+nav.jump a{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;text-decoration:none;color:var(--fg);white-space:nowrap}
+nav.jump svg.i{font-size:18px;color:var(--green-text)}
+section{display:grid;gap:18px;scroll-margin-top:16px}
+.sec-h{display:flex;gap:16px;align-items:center}
+.tile{width:56px;height:56px;border-radius:18px;background:var(--green-soft);color:var(--green-text);display:grid;place-items:center;font-size:30px;flex:none}
+.tile.sm{width:44px;height:44px;border-radius:14px;font-size:24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.stat{background:var(--surface);border-radius:22px;padding:18px;display:grid;gap:6px}
+.stat b{font-family:var(--font-d);font-size:1.6rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--muted)}
+.card{background:var(--surface);border-radius:22px;padding:20px;display:grid;gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.item{display:flex;gap:16px;align-items:flex-start}
+.item>div{min-width:0}
+.note{display:flex;gap:12px;align-items:flex-start;border-radius:18px;padding:14px 16px;font-size:14.5px;background:var(--green-soft)}
+.note svg.i{font-size:24px;margin-top:1px;color:var(--green-text)}
+.note.warn{background:var(--warn-bg);color:var(--warn-fg)}
+.note.warn svg.i{color:inherit}
+.tablewrap{overflow-x:auto;background:var(--surface);border-radius:22px;padding:6px 8px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:600;padding:12px 12px}
+td{padding:13px 12px;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;background:var(--tile);border-radius:999px;padding:4px 11px;white-space:nowrap}
+.chip.g{background:var(--green-soft);color:var(--green-text)}
+.chip.b{background:#e4eefa;color:#2f5f94}
+.chip.a{background:var(--warn-bg);color:var(--warn-fg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip.b{background:#173050;color:#9cc4f0}}
+details{background:var(--surface);border-radius:18px;padding:4px 18px}
+summary{cursor:pointer;padding:14px 0;font-weight:600;list-style:none;display:flex;align-items:center;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;font-size:22px;color:var(--muted)}
+details[open] summary::after{content:"–"}
+details table{min-width:0}
+details .tablewrap{padding:0;background:none;margin-bottom:12px}
+.bars{display:grid;gap:14px}
+.bar{display:grid;gap:6px}
+.bar .row{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:14.5px}
+.bar .row b{font-variant-numeric:tabular-nums}
+.bar .track{height:12px;background:var(--tile);border-radius:6px;overflow:hidden}
+.bar .track i{display:block;height:100%;background:var(--green);border-radius:6px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:var(--line);margin:12px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--green-deep);border:3px solid var(--surface);box-shadow:0 1px 5px rgba(29,50,72,.25)}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:var(--line)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--green-deep);border:3px solid var(--surface)}
+.ctl label{display:flex;justify-content:space-between;gap:12px;font-weight:500;font-size:15px}
+.ctl output{font-weight:700;color:var(--green-text);font-variant-numeric:tabular-nums}
+.stack{display:flex;height:22px;border-radius:11px;overflow:hidden;background:var(--tile)}
+.stack i{display:block;height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.big{font-family:var(--font-d);font-weight:700;font-size:1.8rem;font-variant-numeric:tabular-nums}
+.seg{display:grid;gap:8px}
+.seg button{display:flex;gap:14px;align-items:center;text-align:left;background:var(--surface);border:2px solid transparent;border-radius:18px;padding:12px 14px}
+.seg button[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft)}
+.split{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:18px;align-items:start}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.step{background:var(--surface);border-radius:20px;padding:16px;display:grid;gap:8px;align-content:start;position:relative}
+.step .lab{color:var(--green-text)}
+.checks{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.checks li{display:flex;gap:12px;align-items:flex-start}
+.checks svg.i{font-size:22px;color:var(--green-text);margin-top:2px}
+.src{display:grid;gap:6px;font-size:14px}
+footer{color:var(--muted);font-size:13.5px;display:grid;gap:6px}
+@media (max-width:760px){.split{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="wrap">
+<header>
+  <div class="logo"><img src="logo.png" alt="InvestHR – znanje, ulaganje, budućnost"></div>
+  <div class="head-t"><h1>Financijski plan</h1><p class="sub">Troškovi, izvori financiranja i prihodi InvestHR-a u prve tri godine. Brojke su iz poslovnog plana (lipanj 2026.).</p></div>
+  <span class="flag">Projekcija · ne obećanje</span>
+</header>
+
+<nav class="jump" aria-label="Sadržaj">
+  <a href="#troskovi"><i data-ic="coins"></i>Troškovi</a>
+  <a href="#izvori"><i data-ic="building"></i>Izvori</a>
+  <a href="#slozi"><i data-ic="grid"></i>Složi financiranje</a>
+  <a href="#prihodi"><i data-ic="percent"></i>Prihodi</a>
+  <a href="#scenariji"><i data-ic="chart"></i>Scenariji</a>
+</nav>
+
+<div class="stats">
+  <div class="stat"><b>255.000 €</b><span>ukupni trošak u 3 godine (240.000 € razvoj i 15.000 € marketing)</span></div>
+  <div class="stat"><b>107.000 €</b><span>najveća faza: razvoj MVP-a, 3.–9. mjesec</span></div>
+  <div class="stat"><b>≈ 190.000 €</b><span>deficit u prvoj godini u baznom scenariju</span></div>
+  <div class="stat"><b>0,75%</b><span>godišnja AUM naknada na aktivna ulaganja</span></div>
+</div>
+
+<section id="troskovi">
+  <div class="sec-h"><span class="tile"><i data-ic="coins"></i></span><div><h2>Troškovi po fazama</h2><p class="sub">Najveći dio odlazi na razvoj aplikacije i regulatornu spremnost.</p></div></div>
+  <div class="card">
+    <div class="bars" id="costbars"></div>
+    <p class="fine">Troškovi razvoja mogu pasti za 30–40% uz razvoj dijela posla u regiji i osobno znanje tima (procjena iz rada).</p>
+  </div>
+  <details><summary><span class="chip g">Faza 0</span> Osnivanje i priprema · 22.000 €</summary><div class="tablewrap"><table><tbody>
+    <tr><td>Osnivanje d.o.o.</td><td class="num">2.527 €</td></tr><tr><td>Pravno savjetovanje (HANFA, GDPR, MiFID II)</td><td class="num">7.000 €</td></tr>
+    <tr><td>Infrastruktura i arhitektura platforme</td><td class="num">10.000 €</td></tr><tr><td>Poslovni plan za fondove</td><td class="num">2.500 €</td></tr></tbody></table></div>
+    <p class="fine" style="margin-bottom:14px">Stavke zbrojene daju 22.027 €, u poslovnom planu zaokruženo na 22.000 €.</p></details>
+  <details><summary><span class="chip g">Faza 1</span> MVP: edukacija i simulacija · 107.000 €</summary><div class="tablewrap"><table><tbody>
+    <tr><td>Backend razvoj</td><td class="num">35.000 €</td></tr><tr><td>Mobilna aplikacija za više operativnih sustava</td><td class="num">25.000 €</td></tr>
+    <tr><td>Web platforma</td><td class="num">15.000 €</td></tr><tr><td>Edukacijski sadržaji</td><td class="num">10.000 €</td></tr>
+    <tr><td>Paper trading modul (integracija sa ZSE)</td><td class="num">10.000 €</td></tr><tr><td>KYC/AML i GDPR sloj</td><td class="num">7.000 €</td></tr>
+    <tr><td>Testiranje i kontrola kvalitete</td><td class="num">5.000 €</td></tr></tbody></table></div></details>
+  <details><summary><span class="chip g">Faza 2</span> R&amp;D crowdfunding i licenca · 66.000 €</summary><div class="tablewrap"><table><tbody>
+    <tr><td>R&amp;D crowdfunding modul (escrow, investor dashboard)</td><td class="num">30.000 €</td></tr><tr><td>ECSP/HANFA licenca i pravni troškovi</td><td class="num">15.000 €</td></tr>
+    <tr><td>Verifikacijski sustav R&amp;D projekata (ECI score)</td><td class="num">8.000 €</td></tr><tr><td>Sigurnosna nadogradnja i penetracijsko testiranje</td><td class="num">5.000 €</td></tr>
+    <tr><td>Integracija s FINA/ZSE i platnim gatewayima</td><td class="num">8.000 €</td></tr></tbody></table></div></details>
+  <details><summary><span class="chip g">Faza 3</span> Skaliranje i iteracija · 45.000 €</summary><div class="tablewrap"><table><tbody>
+    <tr><td>Hosting i infrastruktura</td><td class="num">12.000 €</td></tr><tr><td>Sigurnosno održavanje</td><td class="num">6.000 €</td></tr>
+    <tr><td>Korisnička podrška</td><td class="num">24.000 €</td></tr><tr><td>Računovodstvo i administracija</td><td class="num">3.000 €</td></tr></tbody></table></div></details>
+  <details><summary><span class="chip g">Marketing</span> Četiri faze promocije · 15.000 €</summary><div class="tablewrap"><table><tbody>
+    <tr><td>Predlansiranje (1.–3. mj.)</td><td class="num">3.000 €</td></tr><tr><td>Edukacijska kampanja (3.–6. mj.)</td><td class="num">4.000 €</td></tr>
+    <tr><td>B2B suradnje (6.–12. mj.)</td><td class="num">3.000 €</td></tr><tr><td>Growth hacking (12.–24. mj.)</td><td class="num">5.000 €</td></tr></tbody></table></div></details>
+</section>
+
+<section id="izvori">
+  <div class="sec-h"><span class="tile"><i data-ic="building"></i></span><div><h2>Izvori financiranja</h2><p class="sub">Kombinacija bespovratnih sredstava, povoljnih zajmova i privatnog kapitala.</p></div></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Izvor</th><th>Vrsta</th><th>Iznos</th><th>Uvjeti</th></tr></thead>
+    <tbody>
+    <tr><td><b>Osobni kapital i privatni investitori</b> (VC, anđeli)</td><td><span class="chip">Kapital</span></td><td>–</td><td>Početni izvor. Oblik d.o.o. omogućuje dokapitalizaciju bez promjene pravnog oblika.</td></tr>
+    <tr><td><b>HAMAG-BICRO jamstvo</b></td><td><span class="chip b">Jamstvo</span></td><td>do 80% iznosa kredita</td><td>Državno jamstvo za bankarski kredit.</td></tr>
+    <tr><td><b>ESIF mali zajam</b></td><td><span class="chip a">Zajam</span></td><td>25.000–50.000 €</td><td>Otplata 10 godina, poček 2 godine.</td></tr>
+    <tr><td><b>HBOR razvojni kredit</b></td><td><span class="chip a">Kredit</span></td><td>do 400.000 €</td><td>Razvojni kredit za poduzeća.</td></tr>
+    <tr><td><b>Konkurentnost i kohezija 2021.–2027.</b></td><td><span class="chip g">Bespovratno</span></td><td>do 70% prihvatljivih troškova</td><td>EU program, javni natječaji.</td></tr>
+    <tr><td><b>ESF+</b></td><td><span class="chip g">Bespovratno</span></td><td>prema natječaju</td><td>Financira financijsku edukaciju, pismenost mladih i digitalne vještine.</td></tr>
+    <tr><td><b>Erasmus+ KA2</b></td><td><span class="chip g">Bespovratno</span></td><td>150.000–400.000 € po projektu</td><td>Partnerstvo najmanje 3 institucija iz različitih zemalja EU.</td></tr>
+    </tbody></table></div>
+  <p class="fine">Kontekst iz plana: EIF je preko Erste banke osigurao garancijsku liniju do 100 milijuna € za inovativne MSP-ove u Hrvatskoj, a ukupno financiranje hrvatskih startupa u 2025. procijenjeno je na 47 milijuna €.</p>
+  <div class="note warn"><i data-ic="warn"></i><span>Ishodi natječaja nisu zajamčeni. Zato plan ne ovisi o jednom izvoru, a bespovratna sredstva služe za pokrivanje deficita do kritične mase korisnika.</span></div>
+</section>
+
+<section id="slozi">
+  <div class="sec-h"><span class="tile"><i data-ic="grid"></i></span><div><h2>Složi financiranje</h2><p class="sub">Isprobajte kako se izvori mogu kombinirati da pokriju 255.000 €. Početne vrijednosti su ilustrativni scenarij, a ne dogovoreno financiranje.</p></div></div>
+  <div class="split">
+    <div class="card" id="mix"></div>
+    <div class="card" id="mixout"></div>
+  </div>
+</section>
+
+<section id="prihodi">
+  <div class="sec-h"><span class="tile"><i data-ic="percent"></i></span><div><h2>Prihodi</h2><p class="sub">Tri sloja: besplatan plan za rast, pretplata i naknada na ulaganja.</p></div></div>
+  <div class="grid2">
+    <div class="card"><span class="chip g" style="justify-self:start">Freemium</span><b class="big">0 €</b><p class="fine">Edukacija, virtualni portfelj i pregled projekata. Cilj: 5.000 registriranih korisnika u prvoj godini.</p></div>
+    <div class="card"><span class="chip g" style="justify-self:start">Premium Mladi</span><b class="big">2,99 €<small style="font-size:.9rem;font-weight:500"> /mj.</small></b><p class="fine">35,88 € godišnje. Puni edukacijski modul, mikro-ulaganja i gamifikacija.</p></div>
+    <div class="card"><span class="chip g" style="justify-self:start">Premium Pro</span><b class="big">5,99 €<small style="font-size:.9rem;font-weight:500"> /mj.</small></b><p class="fine">71,88 € godišnje. Napredna analitika, izvještaji i prioritetna podrška. Konačna cijena još se potvrđuje (u planu se spominje i 6,99 €).</p></div>
+    <div class="card"><span class="chip g" style="justify-self:start">AUM naknada</span><b class="big">0,75%<small style="font-size:.9rem;font-weight:500"> /god.</small></b><p class="fine">Na aktivna ulaganja u R&amp;D projekte, nakon regulatorne usklađenosti. Ispod 1–2% tradicionalnih savjetnika.</p></div>
+  </div>
+  <div class="card ctl">
+    <h3>Koliko je to za jednog ulagača?</h3>
+    <label for="aum">Prosječno uloženo <output id="aumo"></output></label>
+    <input type="range" id="aum" min="50" max="5000" step="50" value="1000">
+    <div class="legend" style="color:var(--fg)"><span>Mjesečno: <b id="aumm"></b></span><span>Godišnje: <b id="aumy"></b></span></div>
+    <p class="fine">Primjer iz plana: za 1.000 € naknada je oko 0,62 € mjesečno, odnosno oko 7,40 € godišnje.</p>
+  </div>
+</section>
+
+<section id="scenariji">
+  <div class="sec-h"><span class="tile"><i data-ic="chart"></i></span><div><h2>Scenariji i točka pokrivanja</h2><p class="sub">Projekt ne dostiže break-even u prvoj godini ni u jednom scenariju, što je uobičajeno za fintech u ranoj fazi.</p></div></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Scenarij</th><th class="num">Prihod god. 1</th><th class="num">Deficit god. 1</th><th>Break-even</th></tr></thead>
+    <tbody>
+    <tr><td><b>Pesimistični</b><br><span class="fine">2.000 korisnika</span></td><td class="num">≈ 3.816 €</td><td class="num">≈ 196.184 €</td><td>3. kvartal god. 3</td></tr>
+    <tr><td><b>Bazični</b><br><span class="fine">5.000 korisnika</span></td><td class="num">≈ 9.539 €</td><td class="num">≈ 190.461 €</td><td>2. kvartal god. 3</td></tr>
+    <tr><td><b>Optimistični</b><br><span class="fine">10.000 korisnika</span></td><td class="num">≈ 19.078 €</td><td class="num">≈ 180.922 €</td><td>4. kvartal god. 2</td></tr>
+    </tbody></table></div>
+  <div class="note"><i data-ic="bulb"></i><span>Deficit pokrivaju bespovratna sredstva i povoljni zajmovi dok platforma ne dosegne kritičnu masu korisnika. Nakon toga rastu prihodi od pretplata i AUM naknade, a troškovi rastu sporije od broja korisnika.</span></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="tile sm"><i data-ic="doc"></i></span><h3>Pretpostavke i ograničenja</h3></div>
+  <ul class="checks">
+    <li><i data-ic="check"></i><span>Troškovi uključuju razvoj, regulativu i marketing, ali ne uključuju plaće tima.</span></li>
+    <li><i data-ic="check"></i><span>Prihodi od pretplate kreću nakon lansiranja, a AUM naknada tek nakon ECSP/HANFA odobrenja (procjena trajanja 12–18 mjeseci).</span></li>
+    <li><i data-ic="check"></i><span>Konverzija u plaćene korisnike procijenjena je na 3–8%, prema pokazateljima za fintech aplikacije.</span></li>
+    <li><i data-ic="check"></i><span>Ishodi natječaja i dogovori s investitorima nisu zajamčeni, pa je izvore potrebno kombinirati.</span></li>
+  </ul>
+</section>
+
+<footer><span>Izvor: poslovni plan InvestHR, Ekonomski fakultet Sveučilišta u Zagrebu, lipanj 2026. Autori: Luka Mihalić i Marko Milanović.</span><span>Natjecanje Hrvatska pamet Hrvatskoj 2026., kategorija „Kapitalni genijalci”. Sve brojke su projekcije.</span></footer>
+</div>
+
+<script>const IC={
+ coins:'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>',
+ scale:'<path d="M12 3v18M7 21h10"/><path d="M5 7h14"/><path d="M5 7l-3 7a3.5 3.5 0 0 0 6 0z"/><path d="M19 7l-3 7a3.5 3.5 0 0 0 6 0z"/>',
+ doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h6"/>',
+ building:'<path d="M4 21V5l8-2v18"/><path d="M12 9h8v12"/><path d="M7 9h2M7 13h2M7 17h2M15 13h2M15 17h2"/>',
+ users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><path d="M16 5a3.5 3.5 0 0 1 0 6.5M18 14.8c2.2.7 3.5 2.4 3.5 5.2"/>',
+ flag:'<path d="M5 21V4"/><path d="M5 4h13l-2 4 2 4H5"/>',
+ lock:'<rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+ percent:'<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>',
+ shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ warn:'<path d="M12 4l9 16H3z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/>',
+ bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+ chart:'<path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 15l4-4 3 3 5-6"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+ wallet:'<rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><path d="M16 15h2"/>',
+ sprout:'<path d="M12 21v-9"/><path d="M12 12c0-4 3-6.5 8-6.5 0 4-3 6.5-8 6.5z"/><path d="M12 15c0-3-2.2-5-6.5-5 0 3 2.2 5 6.5 5z"/>',
+ flask:'<path d="M9 3h6"/><path d="M10 3v6l-5.5 10a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/>',
+ cap:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5"/>',
+ grid:'<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
+ arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'
+};
+function paintIcons(root){ (root||document).querySelectorAll('i[data-ic]').forEach(el=>{ const s=document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('class','i'); s.setAttribute('viewBox','0 0 24 24'); s.setAttribute('aria-hidden','true'); s.innerHTML=IC[el.dataset.ic]||''; el.replaceWith(s); }); }
+const fmt=n=>Math.round(n).toLocaleString('hr-HR'), eur=n=>fmt(n)+' €';
+</script>
+<script>
+paintIcons();
+/* Troškovi: jedna mjera, pet stavki */
+const COSTS=[['Faza 0 · osnivanje',22000,'prije lansiranja'],['Faza 1 · MVP',107000,'3.–9. mjesec'],['Faza 2 · crowdfunding i licenca',66000,'9.–18. mjesec'],['Faza 3 · skaliranje',45000,'18.–36. mjesec'],['Marketing',15000,'cijelo razdoblje']];
+const mx=Math.max(...COSTS.map(c=>c[1]));
+document.getElementById('costbars').innerHTML=COSTS.map(c=>`<div class="bar"><div class="row"><span>${c[0]} <span class="fine">· ${c[2]}</span></span><b>${eur(c[1])}</b></div><div class="track"><i style="width:${c[1]/mx*100}%"></i></div></div>`).join('')
+ +`<div class="row" style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px"><b>Ukupno</b><b>${eur(255000)}</b></div>`;
+
+/* Složi financiranje */
+const NEED=255000;
+const SRC=[
+ {k:'own',n:'Osobni kapital osnivača',t:'k',min:0,max:50000,step:1000,v:20000,rng:null},
+ {k:'inv',n:'Privatni investitori i anđeli',t:'k',min:0,max:200000,step:5000,v:35000,rng:null},
+ {k:'esif',n:'ESIF mali zajam',t:'d',min:0,max:50000,step:5000,v:50000,rng:[25000,50000]},
+ {k:'hbor',n:'HBOR razvojni kredit',t:'d',min:0,max:400000,step:10000,v:0,rng:[0,400000]},
+ {k:'eu',n:'Erasmus+ KA2',t:'g',min:0,max:400000,step:10000,v:150000,rng:[150000,400000],need:'Uvjet: partneri iz najmanje 3 zemlje EU.'},
+ {k:'kk',n:'Konkurentnost i kohezija',t:'g',min:0,max:200000,step:10000,v:0,rng:null}
+];
+const TYPE={k:['Kapital','var(--blue)'],d:['Zajmovi i krediti','var(--amber)'],g:['Bespovratno','var(--green)']};
+function renderMix(){
+  document.getElementById('mix').innerHTML=SRC.map(s=>{
+    const bad = s.rng && s.v>0 && (s.v<s.rng[0]||s.v>s.rng[1]);
+    return `<div class="ctl"><label for="m-${s.k}">${s.n}<output id="mo-${s.k}">${eur(s.v)}</output></label>
+    <input type="range" id="m-${s.k}" data-k="${s.k}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.v}">
+    ${s.rng?`<span class="fine" id="mr-${s.k}">Raspon iz plana: ${eur(s.rng[0])}–${eur(s.rng[1])}${s.need?'. '+s.need:''}${bad?' <b style="color:var(--bad)">Vrijednost je izvan tog raspona.</b>':''}</span>`:''}</div>`;}).join('');
+  calcMix();
+}
+function calcMix(){
+  const by={k:0,d:0,g:0}; SRC.forEach(s=>by[s.t]+=s.v);
+  const tot=by.k+by.d+by.g, gap=NEED-tot;
+  const seg=['g','k','d'].map(t=>`<i style="width:${Math.min(100,by[t]/NEED*100)}%;background:${TYPE[t][1]}" title="${TYPE[t][0]}"></i>`).join('');
+  document.getElementById('mixout').innerHTML=`
+    <span class="lab">Pokrivenost potrebe od ${eur(NEED)}</span>
+    <b class="big" style="color:${gap<=0?'var(--green-text)':'var(--fg)'}">${Math.round(tot/NEED*100)}%</b>
+    <div class="stack" role="img" aria-label="Struktura financiranja">${seg}</div>
+    <div class="legend">${['g','k','d'].map(t=>`<span><i style="background:${TYPE[t][1]}"></i>${TYPE[t][0]}: <b style="color:var(--fg)">${eur(by[t])}</b></span>`).join('')}</div>
+    <div class="note ${gap>0?'warn':''}"><i data-ic="${gap>0?'warn':'check'}"></i><span>${gap>0?`Nedostaje još ${eur(gap)}.`:gap<0?`Višak od ${eur(-gap)}. Može služiti kao rezerva.`:'Potreba je točno pokrivena.'}${by.d>0?` Zajmovi i krediti (${eur(by.d)}) se vraćaju iz prihoda.`:''}${by.g>0?' Ishod natječaja nije zajamčen.':''}</span></div>`;
+  paintIcons(document.getElementById('mixout'));
+}
+document.getElementById('mix').addEventListener('input',e=>{
+  const r=e.target.closest('input[type=range]'); if(!r) return;
+  const s=SRC.find(x=>x.k===r.dataset.k); s.v=+r.value;
+  document.getElementById('mo-'+s.k).textContent=eur(s.v);
+  const m=document.getElementById('mr-'+s.k);
+  if(m){ const bad=s.v>0&&(s.v<s.rng[0]||s.v>s.rng[1]); m.innerHTML=`Raspon iz plana: ${eur(s.rng[0])}–${eur(s.rng[1])}${s.need?'. '+s.need:''}${bad?' <b style="color:var(--bad)">Vrijednost je izvan tog raspona.</b>':''}`; }
+  calcMix();
+});
+renderMix();
+
+/* AUM kalkulator */
+const aum=document.getElementById('aum');
+function calcAum(){ const v=+aum.value, y=v*0.0075; document.getElementById('aumo').textContent=eur(v); document.getElementById('aumm').textContent=(y/12).toFixed(2).replace('.',',')+' €'; document.getElementById('aumy').textContent=y.toFixed(2).replace('.',',')+' €'; }
+aum.addEventListener('input',calcAum); calcAum();
+</script>
+
+</body></html>
